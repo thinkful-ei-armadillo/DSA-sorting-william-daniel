@@ -182,12 +182,73 @@ function mergeHelper(left, right, array) {
 // Given a Linked List, sort the linked list using merge sort. You will need your linked list 
 // class from previous lesson to create the list and use all of its supplemental functions to solve this problem.
 const LinkedList = require('./linked-list');
+const _Node = require('./linked-list');
 
-// COME BACK LATER
 // input: 
 // output: sorted LL in ascending order
 // compare currNode to currNode.next and sort depending on which ones larger
 
+function sortLinkedList(head) {
+  //base case
+  if (head === null || head.next !== null) {
+    return head;
+  }
+  
+  let lastNode = null;
+  let currNode = head;
+  let nextNode = head;
+
+  while (nextNode !== null && nextNode.next !== null) {
+    nextNode = nextNode.next.next;
+    lastNode = currNode;
+    lastNode = lastNode.next;
+    console.log(head);
+  }
+
+  lastNode.next = null;
+  const list1 = sortLinkedList(head);
+  const list2 = sortLinkedList(currNode);
+
+  return mergeLinkedList(list1, list2);
+}
+
+function mergeLinkedList(l1, l2) {
+  const head = new _Node();
+  let curr = head;
+
+  while (l1 !== null && l2 !== null) {
+    if (l1.val < l2.val) {
+      curr.next = l1;
+      l1 = l1.next;
+    } else {
+      curr.next = l2;
+      l2 = l2.next;
+    }
+
+    curr = curr.next;
+  }
+
+  curr.next = (l1 === null) ? l2 : l1;
+
+  return head.next;
+}
+
+function main() {
+  let ll = new LinkedList();
+
+  ll.insertFirst(1);
+  ll.insertLast(5);
+  ll.insertLast(4);
+  ll.insertLast(3);
+  ll.insertLast(2);
+
+  console.log(JSON.stringify(sortLinkedList(ll.head), null, 2));
+
+}
+
+main();
+
+// this is O(1)
 
 // Bucket sort
 // Write an O(n) algorithm to sort an array of integers, where you know in advance what the lowest and highest values are.
@@ -227,7 +288,7 @@ function shuffle(array, counter=0) {
 }
 
 let data2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-console.log(shuffle(data2));
+// console.log(shuffle(data2));
 
 
 // Sorting books
@@ -237,6 +298,6 @@ console.log(shuffle(data2));
 // use quick sort and maybe merge sort
 
 let books = ['Game of this Thrones', 'Lord of the Rings', 'Of Mice and Men', '1984', 'A Brief History of Time', 'All the Presidents Men', 'Fahrenheit 451', 'Harry Potter', 'Pride and Prejudice', 'Hunger Games', 'The Very Hungry Caterpillar', 'To Kill a Mockingbird', 'A Wrinkle in Time', 'Corduroy'];
-console.log(books.length);
+// console.log(books.length);
 
-console.log(qSort(books));
+// console.log(qSort(books));
