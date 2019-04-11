@@ -194,20 +194,19 @@ function sortLinkedList(head) {
     return head;
   }
   
-  let lastNode = null;
-  let currNode = head;
-  let nextNode = head;
+  let prev = null;
+  let slow = head;
+  let fast = head;
 
-  while (nextNode !== null && nextNode.next !== null) {
-    nextNode = nextNode.next.next;
-    lastNode = currNode;
-    lastNode = lastNode.next;
-    console.log(head);
+  while (fast !== null && fast.next !== null) {
+    fast = fast.next.next;
+    prev = slow;
+    slow = slow.next;
   }
 
-  lastNode.next = null;
+  prev.next = null;
   const list1 = sortLinkedList(head);
-  const list2 = sortLinkedList(currNode);
+  const list2 = sortLinkedList(slow);
 
   return mergeLinkedList(list1, list2);
 }
