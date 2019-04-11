@@ -79,3 +79,10 @@ All cases: O(n * log(n))
   * Keep moving j to left until you find element < = pivot
   * When i & j stops, swap elements at i and j
 * When i > j, swap i with pivot
+
+**performance**:
+* Best case: O(n log n)
+* Worst case: O(n^2)
+  * When will you run into worst case?
+  * Can you think of a way to avoid it?
+* Average case: O(n log n)
